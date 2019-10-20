@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name='Low Cost Acoustic Comm 2 Modes'
