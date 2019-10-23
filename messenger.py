@@ -21,7 +21,7 @@ def main(args):
     # ------------------------------------------------------------------------
     # Initialise the Connect SDK.
     # ------------------------------------------------------------------------
-    sdk = ChirpSDK()
+    sdk = ChirpSDK(debug = True)
     print(sdk.audio.query_devices())
     print(str(sdk))
     sdk.audio.output_device = args.o
