@@ -30,7 +30,7 @@ def main(args):
 
     if sdk.protocol_name != '16khz-mono':
         print("The protocol name is: " + sdk.protocol_name)
-        raise RuntimeError('Must use the 16khz-mono protocol ' +
+        print('Must use the 16khz-mono protocol ' +
                            'to be compatible with other Chirp Messenger apps.')
     else: 
         print(sdk.protocol_name)
@@ -44,7 +44,7 @@ def main(args):
     sdk.volume = args.volume
     sdk.set_callbacks(Callbacks())
     sdk.start()
-    sdk.send(payload)
+    # sdk.send(payload)
 
     try:
         # Process audio streams
@@ -73,7 +73,7 @@ if __name__ == '__main__':
         epilog="Send a message to other Chirp Messengers"
     )
     parser.add_argument('--wait',  help='Time to wait for a Rx message (seconds)', default = 5.0, type = float)
-    parser.add_argument('-m', '--message', help='Text or emoji message to send', type = str)
+    parser.add_argument('-m', '--message', help='Text or emoji message to send', type = str, default = 'TEST')
     parser.add_argument('-v', '--volume', help='Volume', default=1.0)
     parser.add_argument('-o', type=int, default=None, help='Output device index (optional)')
     parser.add_argument('--network-config', action='store_true', help='Optionally download a config from the network')
