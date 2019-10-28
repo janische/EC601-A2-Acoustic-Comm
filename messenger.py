@@ -44,7 +44,7 @@ def main(args):
     sdk.volume = args.volume
     sdk.set_callbacks(Callbacks())
     sdk.start()
-    # sdk.send(payload)
+    sdk.send(payload)
 
     try:
         # Process audio streams
