@@ -1,6 +1,0 @@
-I think you're confusing the sampling frequency with the audible 
-frequencies used to encode the message.
-16kHz refers to the protocol chirp is using, which means
-the sampling frequency the devices is 16kHz.  The audible
-frequency range used to code the message is 1.5kHz-7.8kHz.
-So, your plots seem to verify that things are working correctly.
