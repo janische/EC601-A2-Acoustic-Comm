@@ -51,7 +51,7 @@ def search_for_preamble(bin_str, preamble, start):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Generate the messages for EC415 Lab5.')
+    parser = argparse.ArgumentParser(description='Generate the messages.')
     parser.add_argument('filepath',
                         help='File path to decode.')
     # parser.add_argument('grc_file', help='GRC file path that the program will compile and run.')
