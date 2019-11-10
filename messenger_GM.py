@@ -3,7 +3,7 @@
 
 import argparse
 import time
-from chirpc import app_key, app_secret, app_config
+from chirpc_GM import app_key, app_secret, app_config
 from chirpsdk import ChirpSDK, CallbackSet
 
 class Callbacks(CallbackSet):
@@ -21,37 +21,29 @@ class Callbacks(CallbackSet):
         	else:
         		print("Invalid Message")
         	
-def main(args):
+def main():
     # ------------------------------------------------------------------------
     # Initialise the Connect SDK.
     # ------------------------------------------------------------------------
     sdk = ChirpSDK(app_key,app_secret,app_config)
-    print(sdk.audio.query_devices())
-    print(str(sdk))
-    sdk.audio.output_device = args.o
-    if args.network_config:
-        sdk.set_config_from_network()
-
-    if sdk.protocol_name != '16khz-mono':
-        raise RuntimeError('Must use the ultrasonic protocol ' +
-                           'to be compatible with other Chirp Messenger apps.')
-
     # ------------------------------------------------------------------------
     # Parse unicode and send as a chirp payload
     # ------------------------------------------------------------------------
 
-    if args == '1':
-    	message = 'Help'
-    	message = message.encode('utf-8')
-    elif args == 2:
-    	message = 'Surface'
-    	message = message.encode('utf-8')
+    choice = input("Please Type a message to deliver:")
+
+    if choice == '1':
+        message = "Help"
+    elif choice == '2':
+        message = 'Surface'
+    elif choice == '3':
+        message = 'SHARK!'
     else:
-    	message = args.message.encode('utf-8')
-   
+        message = "Out of Oxygen"
+
+    message = message.encode('utf-8')
     payload = sdk.new_payload(message)
 
-    sdk.volume = args.volume
     sdk.set_callbacks(Callbacks())
     sdk.start()
     sdk.send(payload)
@@ -67,17 +59,4 @@ def main(args):
 
 
 if __name__ == '__main__':
-    # ------------------------------------------------------------------------
-    # Parse command-line arguments.
-    # ------------------------------------------------------------------------
-    parser = argparse.ArgumentParser(
-        description='Chirp Messenger',
-        epilog="Send a message to other Chirp Messengers"
-    )
-    parser.add_argument('message', help='Text or emoji message to send')
-    parser.add_argument('-v', '--volume', help='Volume', default=1.0)
-    parser.add_argument('-o', type=int, default=None, help='Output device index (optional)')
-    parser.add_argument('--network-config', action='store_true', help='Optionally download a config from the network')
-    args = parser.parse_args()
-
-    main(args)
+    main()
