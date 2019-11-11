@@ -1,0 +1,6 @@
+﻿We have 8 bytes w/in the message, using Chirp:
+        1 byte for sender ID   (256 possible senders, ultimately)
+        1 byte for receiver ID (256 possible receivers, ultimately)
+        
+        6 bytes for message (2^48 possible messages, if we limit to GUI boxes)
+                Clearly, we might want to change our model in the future to use these bits more wisely
