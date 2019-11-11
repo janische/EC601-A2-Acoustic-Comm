@@ -1,0 +1,31 @@
+﻿TCP
+https://www.lifewire.com/tcp-headers-and-udp-headers-explained-817970
+
+
+  
+
+
+
+UDP:
+
+
+  
+
+
+
+
+
+
+
+
+
+Points for us:
+-“UDP inserts header fields into its message stream”...is this the same approach we’re taking?
+- In our “header”, do we need to include an id for the sender as well as the receiver?
+
+
+  
+
+
+
+-We should be able to omit the length and checksum for now, to maximize the # of messages we can transmit
