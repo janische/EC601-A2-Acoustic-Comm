@@ -22,13 +22,17 @@ Options for encoding the messages:
 
 For the scope of this semester:
         Limit the messages to:
-                -Help -> ‘a’
-                -Head to surface -> ‘b’
-                -Look at this fish! -> ‘c’
-                -Shark -> ‘d’
+                -Help -> ‘1’
+                -Head to surface -> ‘2’
+                -Look at this fish! -> ‘3’
+                -Shark -> ‘4’
         
 Limit the contact list to:
-                -
+                -JP -> ‘a’
+                -Jonathan -> ‘b’
+                -Glenn -> ‘c’
+                -Amanda -> ‘d’
+                -Unknown sender? -> ‘z’
 
 
 
