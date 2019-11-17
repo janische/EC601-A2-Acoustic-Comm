@@ -49,3 +49,4 @@ Limit the contact list to:
 Potential issues (mostly beyond the scope of this semester):
         -We’re not dealing with potential errors in transmission/decoding like most comm protocols
         -- Chirp is handling this 
+        -- If we have full duplex comms, what will the message acknowledgement protocol look like?
