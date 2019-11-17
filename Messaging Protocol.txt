@@ -1,0 +1,39 @@
+﻿Questions:
+        -Can we use chirp to take care of the timestamp on the message, or do we need to devote space within the message body for that?  Posixtime = 32 bit string, which would take half our space.
+
+
+
+
+Structure:
+        -Time (Posixtime): 4 bytes: half the message
+        -Message: 2 bytes = 2^16 = 65536 possible messages
+        -Sender id: 1 byte = 256 possible contacts
+        -Receiver id: 1 byte = 256 possible contacts
+
+
+Options for encoding the messages: 
+        -bits 
+                -example: “help” -> 00000000 00000001
+        -ascii (for ease of programming)
+                -example: “help” -> ‘a’
+
+
+
+
+For the scope of this semester:
+        Limit the messages to:
+                -Help -> ‘a’
+                -Head to surface -> ‘b’
+                -Look at this fish! -> ‘c’
+                -Shark -> ‘d’
+        
+Limit the contact list to:
+                -
+
+
+
+
+
+
+Potential issues (mostly beyond the scope of this semester):
+        -We’re not dealing with potential errors in transmission/decoding like most comm protocols
