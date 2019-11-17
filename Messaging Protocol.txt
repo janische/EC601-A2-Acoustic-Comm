@@ -1,5 +1,12 @@
 ﻿Questions:
         -Can we use chirp to take care of the timestamp on the message, or do we need to devote space within the message body for that?  Posixtime = 32 bit string, which would take half our space.
+        
+        -- JP: Posixtime is not necessarily a 32 bit string, new devices use 64 bits to avoid the "2038 problem"
+        
+        -- JP: What do you need a timestamp for? Time of decode would be straightforward on the recieve platform
+        
+        -- JP: Time of transmission is more challenging, but very valuable for non-comms purposes
+        -- JP: Would need millisecond or higher precision (I believe posix time is only at the second level)
 
 
 
@@ -41,3 +48,4 @@ Limit the contact list to:
 
 Potential issues (mostly beyond the scope of this semester):
         -We’re not dealing with potential errors in transmission/decoding like most comm protocols
+        -- Chirp is handling this 
