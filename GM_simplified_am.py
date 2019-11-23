@@ -31,6 +31,11 @@ class Contacts(dict):
         #print("getitem fxn")
         return self.dict.get(key)
 
+    def __setitem__(self, key, name):
+        # key = "1, 2, 3, etc"
+        # print("setitem fxn")
+        self.dict[key] = item
+
 
 class Callbacks(CallbackSet):
 
