@@ -61,6 +61,9 @@ class AboveWaterMode : AppCompatActivity() {
         var adptr = ReceiveMessagesAdapter(messages)
         rv.adapter = adptr*/
 
+        val contacts = intent.getStringArrayListExtra("Contacts")
+        val Ids = intent.getIntegerArrayListExtra("IDs")
+        val myID = intent.getIntExtra("My ID", 0)
         val msgs = findViewById<TextView>(R.id.msgsRecvd)
 
         //Receive Data
@@ -68,6 +71,7 @@ class AboveWaterMode : AppCompatActivity() {
             if (payload != null) {
                 var identifier: String = String(payload)
                 msgs.append("\n" + identifier)
+                Toast.makeText(this@AboveWaterMode, "Message received.", Toast.LENGTH_SHORT).show()
                 Log.v("ChirpSDK: ", "Received $identifier")
             } else {
               Log.e("ChirpError: ", "Decode failed")
@@ -85,7 +89,7 @@ class AboveWaterMode : AppCompatActivity() {
         Button10.setOnClickListener {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@AboveWaterMode, "Message sent.", Toast.LENGTH_SHORT).show()
-            msgs.append("\n" + Button11.text)
+            msgs.append("\n" + Button10.text)
             Button10.sendMessage(Button10.text.toString())
         }
         Button11.setOnClickListener {
@@ -113,7 +117,7 @@ class AboveWaterMode : AppCompatActivity() {
             Button14.sendMessage(Button14.text.toString())
         }
     }
-    fun Button.sendMessage(message: String) {
+    fun Button.sendMessage(message: Int, myID: Int) {
         //Transmit Data
         val payload: ByteArray = message.toByteArray()
 

@@ -23,12 +23,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
+        val contacts = setContacts()
+        val ids = assignIDs(contacts)
+        val myID = 1
         val aboveWatButton = findViewById<Button>(R.id.button1)
         // set on-click listener
         aboveWatButton.setOnClickListener {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@MainActivity, "Above-Water Mode", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, AboveWaterMode::class.java)
+            intent.putIntegerArrayListExtra ("IDs", ids)
+            intent.putStringArrayListExtra ("Contacts", contacts)
+            intent.putExtra("My ID", myID)
             startActivity(intent)
         }
         val underWatButton = findViewById<Button>(R.id.button2)
@@ -37,6 +43,9 @@ class MainActivity : AppCompatActivity() {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@MainActivity, "Underwater Mode", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, UnderwaterMode::class.java)
+            intent.putIntegerArrayListExtra ("IDs", ids)
+            intent.putStringArrayListExtra ("Contacts", contacts)
+            intent.putExtra("My ID", myID)
             startActivity(intent)
         }
     }
@@ -60,17 +69,16 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-    fun setContacts(): MutableList<String> {
-        var contacts = mutableListOf<String>()
-        contacts.addAll(listOf("JP", "Glenn", "Jonathan", "Amanda"))
+    fun setContacts(): ArrayList<String> {
+        var contacts = arrayListOf<String>()
+        contacts.addAll(listOf("Broadcast", "JP", "Glenn", "Jonathan", "Amanda"))
         return contacts
     }
-    fun assignIDs(contacts: MutableList<String>): MutableMap<Int, String> {
-        var IDs = mutableMapOf<Int, String>()
-        IDs[0] = "Broadcast"
-        var i = 1
+    fun assignIDs(contacts: ArrayList<String>): ArrayList<Int> {
+        var IDs = arrayListOf<Int>()
+        var i = 0
         for (con in contacts) {
-            IDs[i] = con
+            IDs.add(i)
             i++
         }
         return IDs

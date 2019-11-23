@@ -21,6 +21,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.os.Handler
 import kotlinx.android.synthetic.main.activity_underwater_mode.*
+import android.text.Layout
+import android.opengl.ETC1.getHeight
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 
 private const val REQUEST_RECORD_AUDIO = 1
@@ -53,6 +61,9 @@ class UnderwaterMode : AppCompatActivity() {
         }
         chirp.setListenToSelf(selfToListen = true)
 
+        val contacts = intent.getStringArrayListExtra("Contacts")
+        val Ids = intent.getIntegerArrayListExtra("IDs")
+        val myID = intent.getIntExtra("My ID", 0)
         val msgsRecvd = findViewById<TextView>(R.id.msgsRecvd)
 
         //Receive Data
@@ -60,7 +71,15 @@ class UnderwaterMode : AppCompatActivity() {
             if (payload != null) {
                 var identifier: String = String(payload)
                 msgsRecvd.append("\n" + identifier)
+                Toast.makeText(this@UnderwaterMode, "Message received.", Toast.LENGTH_SHORT).show()
                 Log.v("ChirpSDK: ", "Received $identifier")
+                // Potentially useful for determining visible size of screen
+                //val height = msgsRecvd.getHeight()
+                //val scrollY = msgsRecvd.getScrollY()
+                //val layout = msgsRecvd.getLayout()
+
+                //val firstVisibleLineNumber = layout.getLineForVertical(scrollY)
+                //val lastVisibleLineNumber = layout.getLineForVertical(scrollY + height)
             } else {
                 Log.e("ChirpError: ", "Decode failed")
             }
