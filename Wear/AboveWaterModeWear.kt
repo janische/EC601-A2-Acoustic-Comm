@@ -61,6 +61,9 @@ class AboveWaterModeWear : WearableActivity() {
         var adptr = ReceiveMessagesAdapter(messages)
         rv.adapter = adptr*/
 
+        val contacts = intent.getStringArrayListExtra("Contacts")
+        val Ids = intent.getIntegerArrayListExtra("IDs")
+        val myID = intent.getIntExtra("My ID", 0)
         val msgs = findViewById<TextView>(R.id.msgsRecvd)
 
         //Receive Data

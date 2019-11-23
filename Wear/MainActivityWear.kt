@@ -22,12 +22,18 @@ class MainActivityWear : WearableActivity() {
         // Enables Always-on
         setAmbientEnabled()
 
+        val contacts = setContacts()
+        val ids = assignIDs(contacts)
+        val myID = 1
         val aboveWatButton = findViewById<Button>(R.id.button1)
         // set on-click listener
         aboveWatButton.setOnClickListener {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@MainActivityWear, "Above-Water Mode", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, AboveWaterModeWear::class.java)
+            intent.putIntegerArrayListExtra ("IDs", ids)
+            intent.putStringArrayListExtra ("Contacts", contacts)
+            intent.putExtra("My ID", myID)
             startActivity(intent)
         }
         val underWatButton = findViewById<Button>(R.id.button2)
@@ -36,6 +42,9 @@ class MainActivityWear : WearableActivity() {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@MainActivityWear, "Underwater Mode", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, UnderwaterModeWear::class.java)
+            intent.putIntegerArrayListExtra ("IDs", ids)
+            intent.putStringArrayListExtra ("Contacts", contacts)
+            intent.putExtra("My ID", myID)
             startActivity(intent)
         }
     }
@@ -57,5 +66,19 @@ class MainActivityWear : WearableActivity() {
             startActivity(intent)
         }
 
+    }
+    fun setContacts(): ArrayList<String> {
+        var contacts = arrayListOf<String>()
+        contacts.addAll(listOf("Broadcast", "JP", "Glenn", "Jonathan", "Amanda"))
+        return contacts
+    }
+    fun assignIDs(contacts: ArrayList<String>): ArrayList<Int> {
+        var IDs = arrayListOf<Int>()
+        var i = 1
+        for (con in contacts) {
+            IDs.add(i)
+            i++
+        }
+        return IDs
     }
 }

@@ -61,6 +61,9 @@ class UnderwaterModeWear : WearableActivity() {
         }
         chirp.setListenToSelf(selfToListen = true)
 
+        val contacts = intent.getStringArrayListExtra("Contacts")
+        val Ids = intent.getIntegerArrayListExtra("IDs")
+        val myID = intent.getIntExtra("My ID", 0)
         val msgsRecvd = findViewById<TextView>(R.id.msgsRecvd)
 
         //Receive Data
