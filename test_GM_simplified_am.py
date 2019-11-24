@@ -3,7 +3,7 @@
 
 import argparse
 import time
-#from chirpc_GM import app_key, app_secret, app_config
+from chirpc_GM import app_key, app_secret, app_config
 from chirpsdk import ChirpSDK, CallbackSet
 
 '''
