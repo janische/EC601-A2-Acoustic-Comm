@@ -20,8 +20,14 @@ contacts = {
 # create a Message class w/ props: my_id, recipient_id, payload and func that creates the message
 # Message should also contain the dict storing the codes for the 4 messages
 # farm a lot of main's processes to functions: use main for user input 
+class Messages():
+    def__init__(self):
+        # hard-code the key list and message list, for now
+        key_list = [1, 2, 3, 4]
+        message_list = ["Help!", "I'm going to the boat.", "Look at this neat fish!", "My oxygen is low."]
+        self.dict = dict(zip(key_list, message_list))
 
-class Contacts(dict):
+class Contacts():
     def __init__(self, contact_list):
         print("Constructor called")
         self.my_id = 0               # set owner's id (always 0)
@@ -52,8 +58,10 @@ class Callbacks(CallbackSet):
             message = payload.decode('utf-8') 
             if message[1] == my_id:
                 # Implement de-coding of message!! 
-                print('User-specific Message Received from ' + my_contacts[message[0]] + 
-                        ":" + message)
+                print('User-specific Message Received from ' + my_contacts[message[0]])
+                if message[2] in message_dict.dict.keys():
+                    decoded_message = message_dict.dict[message[2]]
+                    print("Message: ", decoded_message)
             else:
                 print("No messages for you.")
                 #return
@@ -68,6 +76,7 @@ def main():
     # Parse unicode and send as a chirp payload
     # ------------------------------------------------------------------------
 
+    message_dict = Messages()
     num_contacts = int(input("How many contacts would you like to add?: "))
     contact_list = []
     for i in range(num_contacts):
