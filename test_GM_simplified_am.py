@@ -7,16 +7,18 @@ from chirpc_GM import app_key, app_secret, app_config
 from chirpsdk import ChirpSDK, CallbackSet
 
 '''
-chirp = ChirpSDK()
-chirp.start(send=True, receive=True)
+#chirp = ChirpSDK()
+#chirp.start(send=True, receive=True)
 contacts = {
     "Amanda": '4',
     "Glenn": '3',
     "Jonathan": '2',
     "JP": '1'
     }
+
 '''
 # create a Message class w/ props: my_id, recipient_id, payload and func that creates the message
+# Message should also contain the dict storing the codes for the 4 messages
 # farm a lot of main's processes to functions: use main for user input 
 
 class Contacts(dict):
@@ -49,6 +51,7 @@ class Callbacks(CallbackSet):
         else:
             message = payload.decode('utf-8') 
             if message[1] == my_id:
+                # Implement de-coding of message!! 
                 print('User-specific Message Received from ' + my_contacts[message[0]] + 
                         ":" + message)
             else:
