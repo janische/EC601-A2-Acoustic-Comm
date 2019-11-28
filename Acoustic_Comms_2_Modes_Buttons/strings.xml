@@ -1,10 +1,17 @@
 <resources>
-    <string-array name="message_list">
-        <item>Help!!!</item>
-        <item>Everyone back to the boat</item>
-        <item>Shark!</item>
-        <item>My battery's low</item>
-        <item>I need air</item>
+    <string-array name="message_codebook">
+        <item>a|Help!!!</item>
+        <item>b|Everyone back to the boat</item>
+        <item>c|Shark!</item>
+        <item>d|My battery\'s low</item>
+        <item>e|I need air</item>
+        <item>f|I\'m going deeper</item>
+        <item>g|I\'m coming back to the boat</item>
+        <item>h|Storm coming</item>
+        <item>i|Is everyone ok?</item>
+        <item>j|Everyone sound off</item>
+        <item>k|Yes</item>
+        <item>l|No</item>
     </string-array>
     <string-array name="recipient_list">
         <item>Broadcast</item>

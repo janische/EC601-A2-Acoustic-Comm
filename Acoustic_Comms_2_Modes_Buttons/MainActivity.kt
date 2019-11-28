@@ -25,14 +25,14 @@ class MainActivity : AppCompatActivity() {
 
         val contacts = setContacts()
         val ids = assignIDs(contacts)
-        val myID = 1
+        val myID = "1"
         val aboveWatButton = findViewById<Button>(R.id.button1)
         // set on-click listener
         aboveWatButton.setOnClickListener {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@MainActivity, "Above-Water Mode", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, AboveWaterMode::class.java)
-            intent.putIntegerArrayListExtra ("IDs", ids)
+            intent.putStringArrayListExtra ("IDs", ids)
             intent.putStringArrayListExtra ("Contacts", contacts)
             intent.putExtra("My ID", myID)
             startActivity(intent)
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@MainActivity, "Underwater Mode", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, UnderwaterMode::class.java)
-            intent.putIntegerArrayListExtra ("IDs", ids)
+            intent.putStringArrayListExtra ("IDs", ids)
             intent.putStringArrayListExtra ("Contacts", contacts)
             intent.putExtra("My ID", myID)
             startActivity(intent)
@@ -74,11 +74,11 @@ class MainActivity : AppCompatActivity() {
         contacts.addAll(listOf("Broadcast", "JP", "Glenn", "Jonathan", "Amanda"))
         return contacts
     }
-    fun assignIDs(contacts: ArrayList<String>): ArrayList<Int> {
-        var IDs = arrayListOf<Int>()
+    fun assignIDs(contacts: ArrayList<String>): ArrayList<String> {
+        var IDs = arrayListOf<String>()
         var i = 0
         for (con in contacts) {
-            IDs.add(i)
+            IDs.add(i.toString())
             i++
         }
         return IDs

@@ -10,10 +10,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
@@ -63,15 +60,34 @@ class AboveWaterMode : AppCompatActivity() {
 
         val contacts = intent.getStringArrayListExtra("Contacts")
         val Ids = intent.getStringArrayListExtra("IDs")
-        val myID = intent.getCharExtra("My ID", '0')
-        val msgs = findViewById<TextView>(R.id.msgsRecvd)
+        val myID = intent.getStringExtra("My ID")
+        var recID = "1"
+        val messages = parseCodeBook(R.array.message_codebook)
+
+        val msgsView = findViewById<TextView>(R.id.msgsRecvd)
+        val spinner = findViewById<Spinner>(R.id.spinner_a)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, contacts)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                recID = position.toString()
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
 
         //Receive Data
         chirp.onReceived { payload: ByteArray?, channel: Int ->
             if (payload != null) {
-                var identifier: String = String(payload)
-                msgs.append("\n" + identifier)
-                Toast.makeText(this@AboveWaterMode, "Message received.", Toast.LENGTH_SHORT).show()
+                var identifier: String = String(payload, Charsets.UTF_8)
+                val id = identifier[2].toString()
+                if (id == "0" || id == myID) {
+                    val senderMessage = parseMessage(identifier)
+                    msgsView.append("\n" + messages[senderMessage["Message"]])
+                    Toast.makeText(this@AboveWaterMode, "Message received.", Toast.LENGTH_SHORT).show()
+                }
                 Log.v("ChirpSDK: ", "Received $identifier")
             } else {
               Log.e("ChirpError: ", "Decode failed")
@@ -89,38 +105,38 @@ class AboveWaterMode : AppCompatActivity() {
         Button10.setOnClickListener {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@AboveWaterMode, "Message sent.", Toast.LENGTH_SHORT).show()
-            msgs.append("\n" + Button10.text)
-            Button10.sendMessage("0", myID, recID)
+            //msgsView.append("\n" + Button10.text)
+            Button10.sendMessage(messages.keys.elementAt(1), myID, recID)
         }
         Button11.setOnClickListener {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@AboveWaterMode, "Message sent.", Toast.LENGTH_SHORT).show()
-            msgs.append("\n" + Button11.text)
-            Button11.sendMessage("1", myID, recID)
+            //msgsView.append("\n" + Button11.text)
+            Button11.sendMessage(messages.keys.elementAt(2), myID, recID)
         }
         Button12.setOnClickListener {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@AboveWaterMode, "Message sent.", Toast.LENGTH_SHORT).show()
-            msgs.append("\n" + Button12.text)
-            Button12.sendMessage("2", myID, recID)
+            //msgsView.append("\n" + Button12.text)
+            Button12.sendMessage(messages.keys.elementAt(7), myID, recID)
         }
         Button13.setOnClickListener {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@AboveWaterMode, "Message sent.", Toast.LENGTH_SHORT).show()
-            msgs.append("\n" + Button13.text)
-            Button13.sendMessage("3", myID)
+            //msgsView.append("\n" + Button13.text)
+            Button13.sendMessage(messages.keys.elementAt(8), myID, recID)
         }
         Button14.setOnClickListener {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@AboveWaterMode, "Message sent.", Toast.LENGTH_SHORT).show()
-            msgs.append("\n" + Button14.text)
-            Button14.sendMessage("4", myID)
+            //msgsView.append("\n" + Button14.text)
+            Button14.sendMessage(messages.keys.elementAt(9), myID, recID)
         }
     }
-    fun Button.sendMessage(messageID: String, myID: Char, recID: Char) {
+    fun Button.sendMessage(messageID: String, myID: String, recID: String) {
         //Transmit Data
-        val message = recID + myID + messageID
-        val payload: ByteArray = message.toByteArray()
+        val message = "" + recID + myID + messageID
+        val payload: ByteArray = message.toByteArray(Charsets.UTF_8)
 
         val error = chirp.send(payload)
         if (error.code > 0) {
@@ -129,9 +145,20 @@ class AboveWaterMode : AppCompatActivity() {
           Log.v("ChirpSDK: ", "Sent")
         }
     }
-
-    fun parseMessage(payload: ByteArray, myID: Int) {
-
+    fun parseMessage(payload: String): MutableMap<String, String> {
+        val sender = payload[0].toString()
+        val message = payload[2].toString()
+        val parsed = mutableMapOf("Sender" to sender, "Message" to message)
+        return parsed
+    }
+    fun parseCodeBook(stringArrayResourceId: Int): MutableMap<String, String> {
+        val stringArray = resources.getStringArray(stringArrayResourceId)
+        var outputArray = mutableMapOf<String, String>()
+        for (entry in stringArray) {
+            val splitResult = entry.split("|")
+            outputArray.put(splitResult[0], splitResult[1])
+        }
+        return outputArray
     }
 
     override fun onDestroy() {
