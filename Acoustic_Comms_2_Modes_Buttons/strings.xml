@@ -1,0 +1,39 @@
+<resources>
+    <string-array name="message_list">
+        <item>Help!!!</item>
+        <item>Everyone back to the boat</item>
+        <item>Shark!</item>
+        <item>My battery's low</item>
+        <item>I need air</item>
+    </string-array>
+    <string-array name="recipient_list">
+        <item>Broadcast</item>
+        <item>JP</item>
+        <item>Glenn</item>
+        <item>Jonathan</item>
+        <item>Amanda</item>
+    </string-array>
+    <string name="app_name">Low Cost Acoustic Comm</string>
+    <string name="surface_option">Above-water Mode</string>
+    <string name="underwater_option">Underwater Mode</string>
+    <string name="mode_selection">Select a mode:</string>
+
+    <string name="title_activity_underwater_mode">UnderwaterMode</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="send_message">Send</string>
+    <string name="everyone_ok_button">Is everyone OK?</string>
+    <string name="bad_weather_button">Storm coming</string>
+    <string name="head_count_button">Everyone sound off</string>
+    <string name="come_up_button">Everyone back to the boat</string>
+    <string name="help_button">HELP!!!</string>
+    <string name="shark_button">Shark!</string>
+    <string name="going_up_button">I\'m coming back to the boat.</string>
+    <string name="need_air_button">I need air.</string>
+    <string name="low_battery_button">My battery\'s low.</string>
+    <string name="going_deeper_button">I\'m going deeper.</string>
+    <string name="coming_to_you_button">I\'m coming to you.</string>
+    <string name="all_good_button">I\'m all good.</string>
+    <string name="yes_button">Yes</string>
+    <string name="no_button">No</string>
+</resources>
