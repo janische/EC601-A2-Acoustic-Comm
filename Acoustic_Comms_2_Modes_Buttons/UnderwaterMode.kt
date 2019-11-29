@@ -59,8 +59,9 @@ class UnderwaterMode : AppCompatActivity() {
         val contacts = intent.getStringArrayListExtra("Contacts")
         val IDs = intent.getStringArrayListExtra("IDs")
         val myID = intent.getStringExtra("My ID")
-        var recID = "1"
+        var recID = "0"
         val messages = parseCodeBook(R.array.message_codebook)
+        val idsContacts = IDs.zip(contacts).toMap()
 
         val msgsView = findViewById<TextView>(R.id.msgsRecvd)
         val spinner = findViewById<Spinner>(R.id.spinner_u)
@@ -83,7 +84,7 @@ class UnderwaterMode : AppCompatActivity() {
                 val id = identifier[2].toString()
                 if (id == "0" || id == myID) {
                     val senderMessage = parseMessage(identifier)
-                    msgsView.append("\n" + messages[senderMessage["Message"]])
+                    msgsView.append("\n" + idsContacts[senderMessage["Sender"]] + ": " + messages[senderMessage["Message"]])
                     Toast.makeText(this@UnderwaterMode, "Message received.", Toast.LENGTH_SHORT).show()
                 }
                 Log.v("ChirpSDK: ", "Received $identifier")
