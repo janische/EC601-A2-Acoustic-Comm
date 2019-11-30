@@ -84,7 +84,7 @@ class UnderwaterMode : AppCompatActivity() {
                 val id = identifier[2].toString()
                 if (id == "0" || id == myID) {
                     val senderMessage = parseMessage(identifier)
-                    msgsView.append("\n" + idsContacts[senderMessage["Sender"]] + ": " + messages[senderMessage["Message"]])
+                    msgsView.append(idsContacts[senderMessage["Sender"]] + ": " + messages[senderMessage["Message"]] + "\n")
                     Toast.makeText(this@UnderwaterMode, "Message received.", Toast.LENGTH_SHORT).show()
                 }
                 Log.v("ChirpSDK: ", "Received $identifier")
@@ -105,37 +105,37 @@ class UnderwaterMode : AppCompatActivity() {
         Button20.setOnClickListener {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@UnderwaterMode, "Message sent.", Toast.LENGTH_SHORT).show()
-            //msgsView.append("\n" + Button20.text)
+            msgsView.append(idsContacts[recID] + ": " + messages.values.elementAt(0) + "\n")
             Button20.sendMessage(messages.keys.elementAt(0), myID, IDs[0])
         }
         Button21.setOnClickListener {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@UnderwaterMode, "Message sent.", Toast.LENGTH_SHORT).show()
-            //msgsView.append("\n" + Button21.text)
+            msgsView.append(idsContacts[recID] + ": " + messages.values.elementAt(4) + "\n")
             Button21.sendMessage(messages.keys.elementAt(4), myID, recID)
         }
         Button22.setOnClickListener {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@UnderwaterMode, "Message sent.", Toast.LENGTH_SHORT).show()
-            //msgsView.append("\n" + Button22.text)
+            msgsView.append(idsContacts[recID] + ": " + messages.values.elementAt(2) + "\n")
             Button22.sendMessage(messages.keys.elementAt(2), myID, recID)
         }
         Button23.setOnClickListener {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@UnderwaterMode, "Message sent.", Toast.LENGTH_SHORT).show()
-            //msgsView.append("\n" + Button23.text)
+            msgsView.append(idsContacts[recID] + ": " + messages.values.elementAt(3) + "\n")
             Button23.sendMessage(messages.keys.elementAt(3), myID, recID)
         }
         Button24.setOnClickListener {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@UnderwaterMode, "Message sent.", Toast.LENGTH_SHORT).show()
-            //msgsView.append("\n" + Button24.text)
+            msgsView.append(idsContacts[recID] + ": " + messages.values.elementAt(5) + "\n")
             Button24.sendMessage(messages.keys.elementAt(5), myID, recID)
         }
         Button25.setOnClickListener {
             // your code to perform when the user clicks on the button
             Toast.makeText(this@UnderwaterMode, "Message sent.", Toast.LENGTH_SHORT).show()
-            //msgsView.append("\n" + Button25.text)
+            msgsView.append(idsContacts[recID] + ": " + messages.values.elementAt(6) + "\n")
             Button25.sendMessage(messages.keys.elementAt(6), myID, recID)
         }
     }
