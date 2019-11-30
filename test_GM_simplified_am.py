@@ -21,7 +21,7 @@ contacts = {
 # Message should also contain the dict storing the codes for the 4 messages
 # farm a lot of main's processes to functions: use main for user input 
 class Messages():
-    def__init__(self):
+    def __init__(self):
         # hard-code the key list and message list, for now
         key_list = [1, 2, 3, 4]
         message_list = ["Help!", "I'm going to the boat.", "Look at this neat fish!", "My oxygen is low."]
@@ -56,26 +56,28 @@ class Callbacks(CallbackSet):
             print('Failed to decode message!')
         else:
             message = payload.decode('utf-8') 
-            if message[1] == my_id:
+            if int(message[1]) == my_contacts.my_id:
                 # Implement de-coding of message!! 
-                print('User-specific Message Received from ' + my_contacts[message[0]])
+                print('User-specific Message Received from ', my_contacts[int(message[0])])
                 if message[2] in message_dict.dict.keys():
-                    decoded_message = message_dict.dict[message[2]]
+                    decoded_message = message_dict.dict[int(message[2])]
                     print("Message: ", decoded_message)
             else:
                 print("No messages for you.")
                 #return
+
             
 def main():
     # ------------------------------------------------------------------------
     # Initialise the Connect SDK.
     # ------------------------------------------------------------------------
-    #sdk = ChirpSDK(app_key,app_secret,app_config)
+    sdk = ChirpSDK(app_key,app_secret,app_config)
     sdk = ChirpSDK()
     # ------------------------------------------------------------------------
     # Parse unicode and send as a chirp payload
     # ------------------------------------------------------------------------
 
+    global message_dict 
     message_dict = Messages()
     num_contacts = int(input("How many contacts would you like to add?: "))
     contact_list = []
@@ -83,6 +85,7 @@ def main():
         contact_name = input("Enter a name to add: ")
         contact_list.append(contact_name)
         #print(contact_list)
+    global my_contacts 
     my_contacts = Contacts(contact_list)
     #print(my_contacts[0])
     #print(my_contacts[1])
