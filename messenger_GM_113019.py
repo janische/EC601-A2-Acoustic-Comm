@@ -15,7 +15,6 @@ contacts = {
     "Jonathan": '2',
     "JP": '1'
     }
-
 '''
 # create a Message class w/ props: my_id, recipient_id, payload and func that creates the message
 # Message should also contain the dict storing the codes for the 4 messages
@@ -56,60 +55,67 @@ class Callbacks(CallbackSet):
             print('Failed to decode message!')
         else:
             message = payload.decode('utf-8') 
-            if message[1] == my_id: #class does not know my_id or my_contacts!
+            if int(message[1]) == my_contacts.my_id:
                 # Implement de-coding of message!! 
-                print('User-specific Message Received from ' + my_contacts[message[0]])
-                if message[2] in message_dict.dict.keys():
-                    decoded_message = message_dict.dict[message[2]]
+                print('User-specific Message Received from ', my_contacts[int(message[0])])
+                if int(message[2]) in message_dict.dict.keys():
+                    
+                    decoded_message = message_dict.dict[int(message[2])]
                     print("Message: ", decoded_message)
             else:
                 print("No messages for you.")
                 #return
+
             
 def main():
     # ------------------------------------------------------------------------
     # Initialise the Connect SDK.
     # ------------------------------------------------------------------------
-    sdk = ChirpSDK(app_key, app_secret, app_config)
+    sdk = ChirpSDK(app_key,app_secret,app_config)
+    #sdk = ChirpSDK()
     # ------------------------------------------------------------------------
     # Parse unicode and send as a chirp payload
     # ------------------------------------------------------------------------
 
+    global message_dict 
     message_dict = Messages()
+    contact_list = []
     while True:
         print("What would you like to do?")
         menu_choice = int(input("""Please enter 1, 2, 3, 4 to choose one of the following: 
                             1. Create new contacts \n
-                            2. Send a message \n
-                            3. Exit Program \n """))
-
+                            2. Send a message \n   
+                            3. Exit Program \n """)) #Maybe add a option to just wait for messages
         if menu_choice == 1: #issue of adding more contacts for the next time
             num_contacts = int(input("How many contacts would you like to add?: "))
-            contact_list = []
             
             for i in range(num_contacts):
                 contact_name = input("Enter a name to add: ")
                 contact_list.append(contact_name)
-                
+                #print(contact_list)
+            global my_contacts 
             my_contacts = Contacts(contact_list)
-   
-        
-        #error is thrown if no contacts exists
+
+        # begin chirp stff
         elif menu_choice == 2:
             while True:
                 print("To whom would you like to send your message?")
                 recipient = input("""Enter the first name of the person to whom 
                                     you'd like to send a message: """)
+
+
                 # farm this out to a function owned by Contacts
                 for id, name in my_contacts.dict.items():
                     if name == recipient:
                         #print(id)
                         recipient_id = id
+                
                 choice = input("""Please enter 1, 2, 3, 4 to indicate your message: 
                                 1. Help! \n
                                 2. I'm going to the boat. \n
                                 3. Look at this neat fish! \n 
                                 4. My oxygen is low. \n""")
+
                 # farm this out to a function owned by Message
                 if choice == '1':
                     user_payload = 1
@@ -121,6 +127,8 @@ def main():
                     user_payload = 4
                 else:
                     print('Invalid user input.')
+
+                #print(payload)
 
                 encoded_transmission = str(my_contacts.my_id) + str(recipient_id) + str(user_payload)
                 encoded_transmission = encoded_transmission.encode('utf-8')   # is this step still necessary now that str is used?
@@ -137,20 +145,19 @@ def main():
                         time.sleep(0.1)
                 except KeyboardInterrupt:
                     new_choice = int(input("""Please enter 1, 2, 3, 4 to indicate your message: 
-                                1. Send a new message. \n
-                                2. Go back to menu. \n"""))
+                                    1. Send a new message. \n
+                                    2. Go back to menu. \n"""))
                     if new_choice == 1:
                         sdk.stop()
                         continue
                     elif new_choice == 2:
+                        sdk.stop()
                         break
-                
+
         elif menu_choice == 3:
             print("Exiting program...")
             break
             
-
-    
 
 if __name__ == '__main__':
     main()
