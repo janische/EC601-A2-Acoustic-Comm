@@ -12,6 +12,7 @@
         <item>j|Everyone sound off</item>
         <item>k|Yes</item>
         <item>l|No</item>
+        <item>m|Look at this!</item>
     </string-array>
     <string-array name="recipient_list">
         <item>Broadcast</item>
@@ -43,4 +44,5 @@
     <string name="all_good_button">I\'m all good.</string>
     <string name="yes_button">Yes</string>
     <string name="no_button">No</string>
+    <string name="recipient_label">Recipient</string>
 </resources>

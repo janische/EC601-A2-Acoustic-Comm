@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +50,7 @@ class AboveWaterMode : AppCompatActivity() {
                 Log.v("ChirpSDK: ", "Started ChirpSDK")
             }
         }
-        chirp.setListenToSelf(selfToListen = true)
+        //chirp.setListenToSelf(selfToListen = true)
 
         /*val rv = findViewById<RecyclerView>(R.id.recyclerView1)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
@@ -67,6 +68,8 @@ class AboveWaterMode : AppCompatActivity() {
         val idsContacts = IDs.zip(contacts).toMap()
 
         val msgsView = findViewById<TextView>(R.id.msgsRecvd)
+        msgsView.movementMethod = ScrollingMovementMethod()
+
         val spinner = findViewById<Spinner>(R.id.spinner_a)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, contacts)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

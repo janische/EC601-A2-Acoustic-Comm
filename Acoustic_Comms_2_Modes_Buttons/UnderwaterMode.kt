@@ -23,6 +23,7 @@ import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.text.method.ScrollingMovementMethod
 import android.widget.*
 
 
@@ -54,7 +55,7 @@ class UnderwaterMode : AppCompatActivity() {
                 Log.v("ChirpSDK: ", "Started ChirpSDK")
             }
         }
-        chirp.setListenToSelf(selfToListen = true)
+        //chirp.setListenToSelf(selfToListen = true)
 
         val contacts = intent.getStringArrayListExtra("Contacts")
         val IDs = intent.getStringArrayListExtra("IDs")
@@ -64,6 +65,8 @@ class UnderwaterMode : AppCompatActivity() {
         val idsContacts = IDs.zip(contacts).toMap()
 
         val msgsView = findViewById<TextView>(R.id.msgsRecvd)
+        msgsView.movementMethod = ScrollingMovementMethod()
+
         val spinner = findViewById<Spinner>(R.id.spinner_u)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, contacts)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -138,7 +141,7 @@ class UnderwaterMode : AppCompatActivity() {
         //Transmit Data
         val message = "" + myID + recID + messageID
         val payload: ByteArray = message.toByteArray(Charsets.UTF_8)
-        //msgsRecvd.append("\n" + payload.toString(Charsets.UTF_8))
+        //msgsRecvd.append(payload.toString(Charsets.UTF_8) + "\n")
         val error = chirp.send(payload)
         if (error.code > 0) {
             Toast.makeText(this@UnderwaterMode, "Message failed.", Toast.LENGTH_SHORT).show()
